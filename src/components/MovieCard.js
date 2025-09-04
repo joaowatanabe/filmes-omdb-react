@@ -1,57 +1,35 @@
-import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
-function MovieCard({ movie }) {
-  const [isFavorite, setIsFavorite] = useState(false);
-
-  useEffect(() => {
-    const storedFavorites = JSON.parse(localStorage.getItem("favorites")) || [];
-    const exists = storedFavorites.some((fav) => fav.imdbID === movie.imdbID);
-    setIsFavorite(exists);
-  }, [movie]);
+function MovieCard({ movie, favorites, setFavorites }) {
+  const isFavorite = favorites.some((fav) => fav.imdbID === movie.imdbID);
 
   const toggleFavorite = () => {
-    const storedFavorites = JSON.parse(localStorage.getItem("favorites")) || [];
+    let updated = [];
     if (isFavorite) {
-      const updated = storedFavorites.filter((fav) => fav.imdbID !== movie.imdbID);
-      localStorage.setItem("favorites", JSON.stringify(updated));
-      setIsFavorite(false);
+      updated = favorites.filter((fav) => fav.imdbID !== movie.imdbID);
     } else {
-      storedFavorites.push(movie);
-      localStorage.setItem("favorites", JSON.stringify(storedFavorites));
-      setIsFavorite(true);
+      updated = [...favorites, movie];
     }
+    setFavorites(updated);
+    localStorage.setItem("favorites", JSON.stringify(updated));
   };
 
   return (
-    <div
-      style={{
-        border: "1px solid #ddd",
-        borderRadius: "10px",
-        padding: "10px",
-        textAlign: "center",
-        backgroundColor: "#fafafa",
-      }}
-    >
+    <div className="movie-card">
       <img
-        src={movie.Poster !== "N/A" ? movie.Poster : "https://via.placeholder.com/200"}
+        src={
+          movie.Poster !== "N/A"
+            ? movie.Poster
+            : "https://via.placeholder.com/200"
+        }
         alt={movie.Title}
-        style={{ width: "100%", borderRadius: "8px" }}
       />
-      <h3 style={{ margin: "10px 0 5px" }}>{movie.Title}</h3>
+      <h3>{movie.Title}</h3>
       <p>{movie.Year}</p>
-
-      <button
-        onClick={toggleFavorite}
-        style={{
-          marginTop: "10px",
-          padding: "5px 10px",
-          border: "none",
-          borderRadius: "6px",
-          backgroundColor: isFavorite ? "red" : "green",
-          color: "white",
-          cursor: "pointer",
-        }}
-      >
+      <Link to={`/movie/${movie.imdbID}`}>
+        <button>Detalhes</button>
+      </Link>
+      <button onClick={toggleFavorite}>
         {isFavorite ? "Remover dos Favoritos" : "Adicionar aos Favoritos"}
       </button>
     </div>

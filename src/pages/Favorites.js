@@ -1,22 +1,22 @@
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import MovieList from "../components/MovieList";
 
 function Favorites() {
   const [favorites, setFavorites] = useState([]);
 
   useEffect(() => {
-    const storedFavorites = JSON.parse(localStorage.getItem("favorites")) || [];
-    setFavorites(storedFavorites);
+    const favs = JSON.parse(localStorage.getItem("favorites")) || [];
+    setFavorites(favs);
   }, []);
 
   return (
-    <div style={{ padding: "20px" }}>
-      <h1>⭐ Meus Favoritos</h1>
-      {favorites.length > 0 ? (
-        <MovieList movies={favorites} />
-      ) : (
-        <p>Nenhum filme favorito ainda.</p>
-      )}
+    <div>
+      <h2>⭐ Meus Favoritos</h2>
+      <MovieList
+        movies={favorites}
+        favorites={favorites}
+        setFavorites={setFavorites}
+      />
     </div>
   );
 }

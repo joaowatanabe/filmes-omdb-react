@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { searchMovies } from "../services/api";
-import MovieList from "../components/MovieList";
 import SearchBar from "../components/SearchBar";
+import MovieList from "../components/MovieList";
 
 function Home() {
   const [movies, setMovies] = useState([]);
@@ -10,6 +10,12 @@ function Home() {
   const [error, setError] = useState("");
   const [page, setPage] = useState(1);
   const [totalResults, setTotalResults] = useState(0);
+  const [favorites, setFavorites] = useState([]);
+
+  useEffect(() => {
+    const favs = JSON.parse(localStorage.getItem("favorites")) || [];
+    setFavorites(favs);
+  }, []);
 
   const handleSearch = async (q = query, p = 1) => {
     if (!q) return;
@@ -26,7 +32,7 @@ function Home() {
         setTotalResults(0);
         setError(data.Error || "Nenhum resultado encontrado.");
       }
-    } catch (err) {
+    } catch {
       setError("Erro ao buscar filmes.");
     } finally {
       setLoading(false);
@@ -36,24 +42,24 @@ function Home() {
   const totalPages = Math.ceil(totalResults / 10);
 
   return (
-    <div style={{ padding: "20px" }}>
-      <h1>🎬 Busca de Filmes</h1>
+    <div>
       <SearchBar onSearch={(q) => handleSearch(q, 1)} />
-
       {loading && <p>Carregando...</p>}
       {error && <p style={{ color: "red" }}>{error}</p>}
-
-      <MovieList movies={movies} />
-
+      <MovieList
+        movies={movies}
+        favorites={favorites}
+        setFavorites={setFavorites}
+      />
       {totalPages > 1 && (
-        <div style={{ marginTop: "20px" }}>
+        <div className="pagination">
           <button
             disabled={page === 1}
             onClick={() => handleSearch(query, page - 1)}
           >
             ⬅ Anterior
           </button>
-          <span style={{ margin: "0 10px" }}>
+          <span>
             Página {page} de {totalPages}
           </span>
           <button

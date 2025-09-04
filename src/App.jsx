@@ -7,20 +7,21 @@ import "./App.css";
 function App() {
   return (
     <Router>
-      <div style={{ padding: "20px", fontFamily: "Arial" }}>
-        <nav style={{ marginBottom: "20px" }}>
-          <Link to="/" style={{ marginRight: "15px" }}>
-            🏠 Início
-          </Link>
-          <Link to="/favorites">⭐ Favoritos</Link>
+      <header className="app-header">
+        <h1>🎬 Filmes OMDb</h1>
+        <nav>
+          <Link to="/" className="nav-link">Início</Link>
+          <Link to="/favorites" className="nav-link">⭐ Favoritos</Link>
         </nav>
+      </header>
 
+      <main>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/movie/:id" element={<MovieDetails />} />
           <Route path="/favorites" element={<Favorites />} />
         </Routes>
-      </div>
+      </main>
     </Router>
   );
 }
