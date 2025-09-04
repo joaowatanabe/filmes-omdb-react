@@ -1,33 +1,27 @@
-import { useState } from "react";
-import SearchBar from "./components/SearchBar";
-import MovieList from "./components/MovieList";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import Home from "./pages/Home";
+import MovieDetails from "./pages/MovieDetails";
+import Favorites from "./pages/Favorites";
 import "./App.css";
 
 function App() {
-  const [movies, setMovies] = useState([]);
-
-  const searchMovies = async (query) => {
-    if (!query) return;
-
-    const API_KEY = process.env.REACT_APP_OMDB_KEY;
-    const response = await fetch(
-      `https://www.omdbapi.com/?apikey=${API_KEY}&s=${query}`
-    );
-    const data = await response.json();
-
-    if (data.Search) {
-      setMovies(data.Search);
-    } else {
-      setMovies([]);
-    }
-  };
-
   return (
-    <div style={{ padding: "20px", fontFamily: "Arial" }}>
-      <h1>Buscar Filmes</h1>
-      <SearchBar onSearch={searchMovies} />
-      <MovieList movies={movies} />
-    </div>
+    <Router>
+      <div style={{ padding: "20px", fontFamily: "Arial" }}>
+        <nav style={{ marginBottom: "20px" }}>
+          <Link to="/" style={{ marginRight: "15px" }}>
+            🏠 Início
+          </Link>
+          <Link to="/favorites">⭐ Favoritos</Link>
+        </nav>
+
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/movie/:id" element={<MovieDetails />} />
+          <Route path="/favorites" element={<Favorites />} />
+        </Routes>
+      </div>
+    </Router>
   );
 }
 

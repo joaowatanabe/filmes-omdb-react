@@ -4,8 +4,22 @@ const API_KEY = process.env.REACT_APP_OMDB_KEY;
 const API_URL = "https://www.omdbapi.com/";
 
 export const api = axios.create({
-  baseUrl: API_URL,
+  baseURL: API_URL,
   params: {
-    apiKey: API_KEY,
+    apikey: API_KEY,
   },
 });
+
+export const searchMovies = async (query, page = 1) => {
+  const response = await api.get("", {
+    params: { s: query, page },
+  });
+  return response.data;
+};
+
+export const getMovieById = async (id) => {
+  const response = await api.get("", {
+    params: { i: id, plot: "full" },
+  });
+  return response.data;
+};
