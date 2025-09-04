@@ -1,70 +1,111 @@
-# Getting Started with Create React App
+# Filmes OMDb React
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Aplicação desenvolvida como desafio do programa **+praTi**.
+O objetivo é consumir a API **OMDb** para buscar filmes, visualizar detalhes e gerenciar uma lista de favoritos.
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## 📌 Funcionalidades
 
-### `npm start`
+**Busca de filmes** pelo título
+Exibição de resultados com **pôster, título e ano**
+**Paginação** entre os resultados da busca
+**Página de detalhes** com informações completas (diretor, elenco, gênero, sinopse, avaliação etc.)
+**Favoritos**:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- Adicionar ou remover filmes da lista de favoritos
+- Persistência no **localStorage**
+  Tratamento de **erros e carregamento** (loading spinner e mensagens de erro)
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+---
 
-### `npm test`
+## 🛠 Tecnologias Utilizadas
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- [React](https://react.dev/)
+- [React Router DOM](https://reactrouter.com/)
+- [Axios](https://axios-http.com/) para chamadas HTTP
+- [OMDb API](https://www.omdbapi.com/)
 
-### `npm run build`
+---
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## 📂 Estrutura do Projeto
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```
+src/
+  ├── components/
+  │   ├── MovieCard.js       # Card de filme com botão de favoritos
+  │   ├── MovieList.js       # Lista de filmes
+  │   └── SearchBar.js       # Campo de busca
+  │
+  ├── pages/
+  │   ├── Home.js            # Página inicial com busca + paginação
+  │   ├── MovieDetails.js    # Página com detalhes do filme
+  │   └── Favorites.js       # Lista de filmes favoritos
+  │
+  ├── services/
+  │   └── api.js             # Configuração do Axios
+  │
+  ├── App.jsx                # Rotas principais
+  ├── App.css
+  ├── index.js
+  └── index.css
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+---
 
-### `npm run eject`
+## ⚙️ Como Rodar o Projeto
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### 1️⃣ Clonar o repositório
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```bash
+git clone https://github.com/joaowatanabe/filmes-omdb-react.git
+cd filmes-omdb-react
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### 2️⃣ Instalar dependências
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+```bash
+npm install
+```
 
-## Learn More
+### 3️⃣ Criar arquivo `.env`
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Na raiz do projeto, crie um arquivo **.env** com sua chave da [OMDb API](https://www.omdbapi.com/apikey.aspx):
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```
+REACT_APP_OMDB_KEY=SUA_CHAVE_AQUI
+```
 
-### Code Splitting
+### 4️⃣ Rodar a aplicação
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+```bash
+npm start
+```
 
-### Analyzing the Bundle Size
+Acesse no navegador: **[http://localhost:3000](http://localhost:3000)**
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+---
 
-### Making a Progressive Web App
+## 🎯 Como Usar
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+1. Na página inicial, digite o título de um filme no campo de busca.
+2. Navegue pelos resultados usando os botões de paginação.
+3. Clique em um filme para ver seus **detalhes completos**.
+4. Use o botão para **adicionar ou remover dos favoritos**.
+5. Acesse a página ⭐ **Favoritos** no menu para visualizar seus filmes salvos.
 
-### Advanced Configuration
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+## 📸 Demonstração (prints simulados)
 
-### Deployment
+- Página inicial com busca
+- Resultados com pôster e título
+- Página de detalhes com botão de favoritos
+- Lista de favoritos persistida no localStorage
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+---
 
-### `npm run build` fails to minify
+## 👨‍💻 Autor
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Desenvolvido por **João Vicente Watanabe**
+📌 [LinkedIn](https://www.linkedin.com/in/joaowatanabe) | [GitHub](https://github.com/joaowatanabe)
